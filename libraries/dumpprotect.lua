@@ -6,6 +6,8 @@
 
     Protects against the threaded dumper, and a few others that haven't implemented protection against while and repeat loops.
     Incase if we need it due to skids, but so far not ;)
+
+    p.s. how does one fuck a dumper?
 ]]
 
 local shared = getfenv()
