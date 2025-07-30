@@ -33,6 +33,11 @@ end)
 
 task.spawn(function()
     while shared.blackstring ~= nil and shared.trollprotect == true do
+    end
+end)
+
+task.spawn(function()
+    while shared.blackstring ~= nil and shared.trollprotect == true do
         troll2 = randomString(22)
         task.wait()
     end
