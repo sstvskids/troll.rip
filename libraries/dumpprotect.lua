@@ -8,6 +8,7 @@
     Incase if we need it due to skids, but so far not ;)
 ]]
 
+local shared = getgenv()
 shared.trollprotect = true
 
 local function randomString(length)
@@ -18,7 +19,7 @@ local function randomString(length)
     return result
 end
 
-getgenv().blackstring = randomString(10)
+shared.blackstring = randomString(10)
 
 local troll, troll2
 task.spawn(function()
@@ -29,7 +30,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-    while getgenv().blackstring ~= nil and not shared.trollprotect do
+    while shared.blackstring ~= nil and not shared.trollprotect do
         troll2 = 'crw!'
         task.wait()
     end
