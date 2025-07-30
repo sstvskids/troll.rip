@@ -21,12 +21,16 @@ end
 getgenv().blackstring = randomString(10)
 
 local troll, troll2
-repeat
-    troll = 'croo!'
-    task.wait()
-until not shared.trollprotect
+task.spawn(function()
+    repeat
+        troll = 'croo!'
+        task.wait()
+    until not shared.trollprotect
+end)
 
-while getgenv().blackstring ~= nil and not shared.trollprotect do
-    troll2 = 'crw!'
-    task.wait()
-end
+task.spawn(function()
+    while getgenv().blackstring ~= nil and not shared.trollprotect do
+        troll2 = 'crw!'
+        task.wait()
+    end
+end)
