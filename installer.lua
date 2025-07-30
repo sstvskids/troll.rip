@@ -55,7 +55,28 @@ assert(identifyexecutor, 'Super horrible executor', function()
     return 'troll.rip 1.0.0'
 end)
 
-assert(fireproximityprompt, 'Bad exec lolz: get Volcano @ volcano.wtf or Nucleus @ nucleus.rip')
+assert(isfile, 'Learn to make functions and maybe I will forgive you', function(path)
+    local suc, res = pcall(readfile, path)
+    return suc
+end)
+
+assert(loadstring, 'Learn to make functions and maybe I will forgive you', function(path)
+    local function randomString(length)
+        local result = ''
+        for i = 1, length do
+            result = result..string.char(math.random(97, 122))
+        end
+        return result
+    end
+    local str = randomString(10)
+
+    if not isfile(str) then
+        writefile(str, path)
+        loadfile(str)()
+        task.wait(0.06)
+        delfile(str)
+    end
+end)
 
 for _,v in {'troll.rip', 'troll.rip/games', 'troll.rip/libraries'} do
     if not isfolder(v) then
