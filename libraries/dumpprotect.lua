@@ -8,7 +8,7 @@
     Incase if we need it due to skids, but so far not ;)
 ]]
 
-local shared = getgenv()
+local shared = shared or getfenv() or getgenv()
 shared.trollprotect = true
 
 local function randomString(length)
