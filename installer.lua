@@ -55,9 +55,13 @@ assert(identifyexecutor, 'Super horrible executor', function()
     return 'troll.rip 1.0.0'
 end)
 
-assert(isfile, 'Learn to make functions and maybe I will forgive you', function(path)
-    local suc, res = pcall(readfile, path)
-    return suc
+assert(isfile, 'Learn to make functions and maybe I will forgive you', function(file)
+    local suc, res = pcall(readfile, file)
+    return suc and res ~= nil and res ~= ''
+end)
+
+assert(delfile, 'Learn to make functions and maybe I will forgive you', function(file)
+    writefile(file, '')
 end)
 
 assert(loadstring, 'Learn to make functions and maybe I will forgive you', function(path)
@@ -78,8 +82,47 @@ assert(loadstring, 'Learn to make functions and maybe I will forgive you', funct
     end
 end)
 
-for _,v in {'troll.rip', 'troll.rip/games', 'troll.rip/libraries', 'troll.rip/themes', 'troll.rip/configs'} do
+assert(fireproximityprompt, 'Horrific executor. Run sum MoreUNC or sum shi')
+
+-- Actual installer lolz!
+local api = 'https://api.github.com/repos/sstvskids/troll.rip/contents/'
+local httpService = cloneref(game:GetService('HttpService'))
+
+local folders = {'games', 'libraries'}
+for _,v in {'troll.rip', 'troll.rip/themes', 'troll.rip/configs'} do
     if not isfolder(v) then
         task.spawn(makefolder, v)
     end
 end
+
+for _, v in httpService:JSONDecode(game:HttpGet(api)) do
+    print(v.path, v.download_url)
+    if v.type == 'dir' then
+        if not isfolder('troll.rip/'..v.path) then
+            task.spawn(makefolder, 'troll.rip/'..v.path)
+        end
+    elseif v.type == 'file' then
+        if isfile('troll.rip/'..v.path) then
+            delfile('troll.rip/'..v.path)
+        end
+        task.spawn(writefile, 'troll.rip/'..v.path, game:HttpGet(v.download_url))
+    end
+end
+
+for _,v in folders do
+    for _, i in httpService:JSONDecode(game:HttpGet(api..v)) do
+        print(i.path, i.download_url)
+        if i.type == 'dir' then
+            if not isfolder('troll.rip/'..i.path) then
+                task.spawn(makefolder, 'troll.rip/'..i.path)
+            end
+        elseif i.type == 'file' then
+            if isfile('troll.rip/'..i.path) then
+                delfile('troll.rip/'..i.path)
+            end
+            task.spawn(writefile, 'troll.rip/'..i.path, game:HttpGet(i.download_url))
+        end
+    end
+end
+
+return loadfile('troll.rip/main.lua')()
