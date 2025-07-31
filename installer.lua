@@ -96,7 +96,6 @@ for _,v in {'troll.rip', 'troll.rip/themes', 'troll.rip/configs'} do
 end
 
 for _, v in httpService:JSONDecode(game:HttpGet(api)) do
-    print(v.path, v.download_url)
     if v.type == 'dir' then
         if not isfolder('troll.rip/'..v.path) then
             task.spawn(makefolder, 'troll.rip/'..v.path)
@@ -111,7 +110,6 @@ end
 
 for _,v in folders do
     for _, i in httpService:JSONDecode(game:HttpGet(api..v)) do
-        print(i.path, i.download_url)
         if i.type == 'dir' then
             if not isfolder('troll.rip/'..i.path) then
                 task.spawn(makefolder, 'troll.rip/'..i.path)
@@ -125,4 +123,5 @@ for _,v in folders do
     end
 end
 
+print('troll.rip | installed!')
 return loadfile('troll.rip/main.lua')()
