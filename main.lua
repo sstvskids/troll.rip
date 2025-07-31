@@ -2,6 +2,7 @@
 
 local games = {
     [6764533218] = 'troll.rip/games/washiez.lua'
+    [0] = 'troll.rip/games/universal.lua' -- no game with 0, so we good
 }
 
 for i,v in games do
@@ -9,11 +10,17 @@ for i,v in games do
         if isfile(v) then
             return loadfile(v)()
         else
-            warn('what the dawg doing?')
+            warn('No file found --> contact @._stav for help!')
             return
         end
-        break
     end
-    
-    return
+
+    if i ~= game.PlaceId and i == 0 then
+        if isfile(v) then
+            return loadfile(v)()
+        else
+            warn('No file found --> contact @._stav for help!')
+            return
+        end
+    end
 end

@@ -78,7 +78,7 @@ assert(loadstring, 'Learn to make functions and maybe I will forgive you', funct
     end
 end)
 
-for _,v in {'troll.rip', 'troll.rip/games', 'troll.rip/libraries'} do
+for _,v in {'troll.rip', 'troll.rip/games', 'troll.rip/libraries', 'troll.rip/themes', 'troll.rip/configs'} do
     if not isfolder(v) then
         task.spawn(makefolder, v)
     end

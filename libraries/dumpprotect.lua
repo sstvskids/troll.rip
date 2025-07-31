@@ -5,9 +5,7 @@
     by: @stav
 
     Protects against the threaded dumper, and a few others that haven't implemented protection against while and repeat loops.
-    Incase if we need it due to skids, but so far not ;)
-
-    p.s. how does one fuck a dumper?
+    Incase if we need it due to pasters using this code without permission, but so far not ;)
 ]]
 
 local shared = getfenv()
@@ -21,7 +19,7 @@ local function randomString(length)
     return result
 end
 
-shared.blackstring = randomString(10)
+shared.blackstring = randomString(99)
 
 local troll, troll2
 task.spawn(function()
@@ -29,12 +27,13 @@ task.spawn(function()
         troll = randomString(22)
         task.wait()
     until shared.trollprotect == false
-
-    print(troll)
 end)
+
+print(troll)
 
 task.spawn(function()
     while shared.blackstring ~= nil and shared.trollprotect == true do
+        task.wait()
     end
 end)
 
@@ -43,6 +42,6 @@ task.spawn(function()
         troll2 = randomString(22)
         task.wait()
     end
-
-    print(troll2)
 end)
+
+print(troll2)

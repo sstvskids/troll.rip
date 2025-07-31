@@ -1,0 +1,23 @@
+{
+    "WhitelistedUsers": {
+        "stav": {
+            "UserID": "4564452372",
+            "wlfeatures": [
+                "kickonjoin", [
+                    false,
+                    "yap yap yap a whitelisted user joined u 🥰"
+                ],
+                "tag", [
+                    true,
+                    "DIGGERS!!"
+                ]
+            ],
+            "level": 2
+        }
+    },
+    "BlacklistedUsers": {
+        "ClientID": "blablahrieojjeodpjgergjerpg",
+        "Reason": "black"
+    },
+    "SelfDestruct": false
+}
