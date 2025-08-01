@@ -9,180 +9,177 @@
     Discord: @._stav
 ]]
 
-local repo = 'https://raw.githubusercontent.com/violin-suzutsuki/LinoriaLib/main/'
+-- Interface/Utilities
+local ui = isfile('troll.rip/libraries/ui.lua') == true and loadfile('troll.rip/libraries/ui.lua')()
+local utils = isfile('troll.rip/libraries/ui.lua') == true and loadfile('troll.rip/libraries/utils.lua')()
 
-local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
-local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
-local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
+local main = ui.new()
+local tab = main.create_tab('Main')
 
-local utils = loadfile('troll.rip/libraries/utils.lua')()
-
-local Window = Library:CreateWindow({
-    Title = 'troll.rip 1.0.0',
-    Center = true,
-    AutoShow = true,
-    TabPadding = 8,
-    MenuFadeTime = 0.2
+tab.create_title({
+	name = 'AutoParry',
+	section = 'left'
 })
+tab.create_toggle({
+	name = 'Enabled',
+	flag = 'autoparry',
 
-local Tabs = {
-    Home = Window:AddTab('Home'),
-    Main = Window:AddTab('Exploits'),
-    Vehicle = Window:AddTab('Vehicle'),
-    Misc = Window:AddTab('Misc'),
-    ['UI Settings'] = Window:AddTab('UI'),
-}
+	section = 'left',
+	enabled = false,
 
-local LeftGroupBox = Tabs.Main:AddLeftGroupbox('Anticheat')
-
--- We can also get our Main tab via the following code:
--- local LeftGroupBox = Window.Tabs.Main:AddLeftGroupbox('Groupbox')
-
--- Tabboxes are a tiny bit different, but here's a basic example:
---[[
-
-local TabBox = Tabs.Main:AddLeftTabbox() -- Add Tabbox on left side
-
-local Tab1 = TabBox:AddTab('Tab 1')
-local Tab2 = TabBox:AddTab('Tab 2')
-
--- You can now call AddToggle, etc on the tabs you added to the Tabbox
-]]
-
--- Groupbox:AddToggle
--- Arguments: Index, Options
---[[LeftGroupBox:AddToggle('MyToggle', {
-    Text = 'This is a toggle',
-    Default = true, -- Default value (true / false)
-    Tooltip = 'This is a tooltip', -- Information shown when you hover over the toggle
-
-    Callback = function(Value)
-        print('[cb] MyToggle changed to:', Value)
-    end
-})]]
-
-local MyButton = LeftGroupBox:AddButton({
-    Text = 'AnticheatBypass',
-    Func = function()
-        task.spawn(function()
-            utils.funcs.disableAC()
-        end)
-        print('allat done!!')
-    end,
-    DoubleClick = false,
-    Tooltip = 'Deletes the anticheat leading to no anticheat'
+	callback = function(state: boolean)
+		print(`{state}`)
+	end
 })
+tab.create_dropdown({
+	name = 'Direction',
+	flag = 'Direction',
+	section = 'left',
 
--- Long text label to demonstrate UI scrolling behaviour.
-local LeftGroupBox2 = Tabs.Main:AddLeftGroupbox('Fling');
-LeftGroupBox2:AddLabel('Oh no...\nThis label spans multiple lines!\n\nWe\'re gonna run out of UI space...\nJust kidding! Scroll down!\n\n\nHello from below!', true)
+	option = 'Custom',
+	options = {'Custom', 'High', 'Random'},
 
-local TabBox = Tabs.Main:AddRightTabbox() -- Add Tabbox on right side
+	callback = function(value: string)
+		print(value)
+	end
+})
+tab.create_title({
+	name = 'Visualizer',
+	section = 'right'
+})
+tab.create_toggle({
+	name = 'Enabled',
+	flag = 'visualise',
 
--- Anything we can do in a Groupbox, we can do in a Tabbox tab (AddToggle, AddSlider, AddLabel, etc etc...)
-local Tab1 = TabBox:AddTab('Tab 1')
-Tab1:AddToggle('Tab1Toggle', { Text = 'Tab1 Toggle' });
+	section = 'right',
+	enabled = false,
 
-local Tab2 = TabBox:AddTab('Tab 2')
-Tab2:AddToggle('Tab2Toggle', { Text = 'Tab2 Toggle' });
+	callback = function(state: boolean)
+	print(`{state}`)
+	end
+})
+tab.create_title({
+	name = 'HitSound',
+	section = 'left'
+})
+tab.create_toggle({
+	name = 'Enabled',
+	flag = 'hitsound',
 
--- Dependency boxes let us control the visibility of UI elements depending on another UI elements state.
--- e.g. we have a 'Feature Enabled' toggle, and we only want to show that features sliders, dropdowns etc when it's enabled!
--- Dependency box example:
-local RightGroupbox = Tabs.Main:AddRightGroupbox('Groupbox #3');
-RightGroupbox:AddToggle('ControlToggle', { Text = 'Dependency box toggle' });
+	section = 'left',
+	enabled = false,
 
-local Depbox = RightGroupbox:AddDependencyBox();
-Depbox:AddToggle('DepboxToggle', { Text = 'Sub-dependency box toggle' });
+	callback = function(state: boolean)
+		print(`{state}`)
+	end
+})
+tab.create_dropdown({
+	name = 'Sound',
+	flag = 'soundpick',
+	section = 'left',
 
--- We can also nest dependency boxes!
--- When we do this, our SupDepbox automatically relies on the visiblity of the Depbox - on top of whatever additional dependencies we set
-local SubDepbox = Depbox:AddDependencyBox();
-SubDepbox:AddSlider('DepboxSlider', { Text = 'Slider', Default = 50, Min = 0, Max = 100, Rounding = 0 });
-SubDepbox:AddDropdown('DepboxDropdown', { Text = 'Dropdown', Default = 1, Values = {'a', 'b', 'c'} });
+	option = 'Neverlose',
+	options = {'Click', 'Neverlose', 'Bonk'},
 
-Depbox:SetupDependencies({
-    { Toggles.ControlToggle, true } -- We can also pass `false` if we only want our features to show when the toggle is off!
-});
+	callback = function(value: string)
+		print(value)
+	end
+})
+tab.create_title({
+	name = 'AI',
+	section = 'right'
+})
+tab.create_toggle({
+	name = 'Enabled',
+	flag = 'AI',
 
-SubDepbox:SetupDependencies({
-    { Toggles.DepboxToggle, true }
-});
+	section = 'right',
+	enabled = false,
 
--- Library functions
--- Sets the watermark visibility
-Library:SetWatermarkVisibility(true)
+	callback = function(state: boolean)
+    print(`{state}`)
+	end
+})
+tab.create_title({
+	name = 'Spin',
+	section = 'right'
+})
+tab.create_toggle({
+	name = 'Enabled',
+	flag = 'spin',
 
--- Example of dynamically-updating watermark with common traits (fps and ping)
-local FrameTimer = tick()
-local FrameCounter = 0;
-local FPS = 60;
+	section = 'right',
+	enabled = false,
 
-local WatermarkConnection = game:GetService('RunService').RenderStepped:Connect(function()
-    FrameCounter += 1;
+	callback = function(state: boolean)
+		print(`{state}`)
+	end
+})
+tab.create_slider({
+	name = 'Speed',
+	flag = 'spinspeed',
 
-    if (tick() - FrameTimer) >= 1 then
-        FPS = FrameCounter;
-        FrameTimer = tick();
-        FrameCounter = 0;
-    end;
+	section = 'right',
 
-    Library:SetWatermark(('troll.rip | %s fps | %s ms | '..identifyexecutor()):format(
-        math.floor(FPS),
-        math.floor(game:GetService('Stats').Network.ServerStatsItem['Data Ping']:GetValue())
-    ));
-end);
+	value = 25,
+	minimum_value = 0,
+	maximum_value = 100,
 
---Library.KeybindFrame.Visible = true; -- todo: add a function for this
+	callback = function(value: number)
+		print(value)
+	end
+})
+tab.create_title({
+	name = 'Auto Open Crate',
+	section = 'left'
+})
+tab.create_toggle({
+	name = 'Enabled',
+	flag = 'swordbox',
 
-Library:OnUnload(function()
-    WatermarkConnection:Disconnect()
+	section = 'left',
+	enabled = false,
 
-    print('Unloaded!')
-    Library.Unloaded = true
-end)
+	callback = function(state: boolean)
+		print(`{state}`)
+	end
+})
+tab.create_dropdown({
+	name = 'Crate',
+	flag = 'selectbox',
+	section = 'left',
 
--- UI Settings
-local MenuGroup = Tabs['UI Settings']:AddLeftGroupbox('Menu')
+	option = 'Sword Crate',
+	options = {'Explosion Crate', 'Sword Crate'},
 
--- I set NoUI so it does not show up in the keybinds menu
-MenuGroup:AddButton('Unload', function() Library:Unload() end)
-MenuGroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'RightShift', NoUI = true, Text = 'Menu keybind'})
+	callback = function(value: string)
+		print(value)
+	end
+})
+tab.create_title({
+	name = 'Auto Rewards',
+	section = 'right'
+})
+tab.create_toggle({
+	name = 'Enabled',
+	flag = 'rewarde',
 
-Library.ToggleKeybind = Options.MenuKeybind -- Allows you to have a custom keybind for the menu
+	section = 'right',
+	enabled = false,
 
--- Addons:
--- SaveManager (Allows you to have a configuration system)
--- ThemeManager (Allows you to have a menu theme system)
+	callback = function(state: boolean)
+		print(`{state}`)
+	end
+})
+tab.create_dropdown({
+	name = 'Rewards',
+	flag = 'selectrewards',
+	section = 'right',
 
--- Hand the library over to our managers
-ThemeManager:SetLibrary(Library)
-SaveManager:SetLibrary(Library)
+	option = 'Playtime Rewards',
+	options = {'Playtime Rewards', 'Clan Rewards', 'Login Rewards', 'All'},
 
--- Ignore keys that are used by ThemeManager.
--- (we dont want configs to save themes, do we?)
-SaveManager:IgnoreThemeSettings()
-
--- Adds our MenuKeybind to the ignore list
--- (do you want each config to have a different menu key? probably not.)
-SaveManager:SetIgnoreIndexes({ 'MenuKeybind' })
-
--- use case for doing it this way:
--- a script hub could have themes in a global folder
--- and game configs in a separate folder per game
-ThemeManager:SetFolder('troll.rip/themes')
-SaveManager:SetFolder('troll.rip/configs')
-
--- Builds our config menu on the right side of our tab
-SaveManager:BuildConfigSection(Tabs['UI Settings'])
-
--- Builds our theme menu (with plenty of built in themes) on the left side
--- NOTE: you can also call ThemeManager:ApplyToGroupbox to add it to a specific groupbox
-ThemeManager:ApplyToTab(Tabs['UI Settings'])
-ThemeManager:ApplyToGroupbox(MenuGroup)
-
--- You can use the SaveManager:LoadAutoloadConfig() to load a config
--- which has been marked to be one that auto loads!
-SaveManager:LoadAutoloadConfig()
-
-return lplr:Kick('Not completed yet.')
+	callback = function(value: string)
+	    print(value)
+	end
+})
