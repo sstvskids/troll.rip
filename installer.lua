@@ -7,7 +7,7 @@
 ]]
 
 -- Functions troll.rip needs to work
-local function assert(func, msg, cfunc)
+local function assert(func, msg, cfunc) -- Func (function), Msg (warn/err string), cfunc (custom function)
     if cfunc and not func then
         warn(msg)
         getgenv().func = cfunc

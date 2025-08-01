@@ -9,20 +9,8 @@ print('troll.rip | main.lua')
 
 for i,v in games do
     if i == game.PlaceId then
-        if isfile(v) then
-            return loadfile(v)()
-        else
-            warn('No file found --> contact @._stav for help!')
-            return
-        end
-    end
-
-    if i ~= game.PlaceId and i == 0 then
-        if isfile(v) then
-            return loadfile(v)()
-        else
-            warn('No file found --> contact @._stav for help!')
-            return
-        end
+        return isfile(v) and loadfile(v)() or warn('No file found --> contact @._stav for help!')
     end
 end
+
+return isfile('troll.rip/games/universal.lua') and loadfile('troll.rip/games/universal.lua')() or warn('No file found --> contact @._stav for help!')
