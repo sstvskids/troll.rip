@@ -22,30 +22,26 @@ local workspace = cloneref(game:GetService('Workspace'))
 local lplr = playersService.LocalPlayer
 
 local suc, res = pcall(require, replicatedStorage.GasStation:WaitForChild('MaxFuel'))
-if suc then
-    utils.cars = res
-else
-    utils.cars = {
-        ['SUV'] = 1200,
-        ['Striped SUV'] = 1250,
-        ['Van'] = 1350,
-        ['Striped Van'] = 1400,
-        ['Jeep'] = 1300,
-        ['Sedan'] = 1300,
-        ['Camo Jeep'] = 1350,
-        ['Striped Sedan'] = 1350,
-        ['Pickup Truck'] = 1300,
-        ['Foiled Pickup Truck'] = 1350,
-        ['Dune Buggy'] = 1100,
-        ['Camo Dune Buggy'] = 1200,
-        ['Sports Car'] = 1000,
-        ['Striped Sports Car'] = 1050,
-        ['Painted Sports Car'] = 1050,
-        ['Supercar'] = 1000,
-        ['Striped Supercar'] = 1050,
-        ['Police Car'] = 1250
-    }
-end
+utils.cars = suc == true and type(res) == 'table' and res or {
+    ['SUV'] = 1200,
+    ['Striped SUV'] = 1250,
+    ['Van'] = 1350,
+    ['Striped Van'] = 1400,
+    ['Jeep'] = 1300,
+    ['Sedan'] = 1300,
+    ['Camo Jeep'] = 1350,
+    ['Striped Sedan'] = 1350,
+    ['Pickup Truck'] = 1300,
+    ['Foiled Pickup Truck'] = 1350,
+    ['Dune Buggy'] = 1100,
+    ['Camo Dune Buggy'] = 1200,
+    ['Sports Car'] = 1000,
+    ['Striped Sports Car'] = 1050,
+    ['Painted Sports Car'] = 1050,
+    ['Supercar'] = 1000,
+    ['Striped Supercar'] = 1050,
+    ['Police Car'] = 1250
+}
 
 --[[
     Anticheat Functions
@@ -124,7 +120,7 @@ utils.funcs.getNearestVehicle = function()
     return nearest
 end
 
-utils.funcs.randomString(length)
+utils.funcs.randomString = function(length)
     local result = ''
     for i = 1, length do
         result = result..string.char(math.random(97, 122))
