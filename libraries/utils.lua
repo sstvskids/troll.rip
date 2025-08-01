@@ -124,4 +124,12 @@ utils.funcs.getNearestVehicle = function()
     return nearest
 end
 
+utils.funcs.randomString(length)
+    local result = ''
+    for i = 1, length do
+        result = result..string.char(math.random(97, 122))
+    end
+    return result
+end
+
 return utils
