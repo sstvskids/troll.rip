@@ -10,4 +10,4 @@ for i,v in games do
     end
 end
 
-return isfile('troll.rip/games/universal.lua') and loadfile('troll.rip/games/universal.lua')() or warn('No file found --> contact @._stav for help!')
+return isfile('troll.rip/games/universal.lua') == true and loadfile('troll.rip/games/universal.lua')() or isfile('troll.rip/games/universal.lua') == false and warn('No file found --> contact @._stav for help!')
