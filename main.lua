@@ -1,11 +1,8 @@
 -- games loader yada-yada!!
 
 local games = {
-    [6764533218] = 'troll.rip/games/washiez.lua',
-    [0] = 'troll.rip/games/universal.lua' -- no game with 0, so we good
+    [6764533218] = 'troll.rip/games/washiez.lua'
 }
-
-print('troll.rip | main.lua')
 
 for i,v in games do
     if i == game.PlaceId then
