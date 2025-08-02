@@ -40,9 +40,11 @@ tab.create_toggle({
 
             connections.Anticheat = workspace.DescendantAdded:Connect(function(ac)
                 if ac.Name == "AntiExploit" then
-                    ac:Destroy()
+                    task.defer(function()
+                        utils.funcs.disableAC()
+                    end)
                 end
-            end)
+            end)       
         else
             if connections.Anticheat ~= '' then
                 connections.Anticheat:Disconnect()
@@ -51,6 +53,23 @@ tab.create_toggle({
             warn('Anticheat Bypass can not be disabled, however disabling will prevent future attempts of Car AntiExploit bypass.')
         end
     end
+})
+
+tab.create_title({
+    name = 'StaffDetector',
+    section = 'right'
+})
+tab.create_toggle({
+	name = 'Enabled',
+	flag = 'staffdetect',
+
+	section = 'right',
+	enabled = false,
+
+	callback = function(state: boolean)
+        print('idk vro what to do now lolz')
+	    print(`{state}`)
+	end
 })
 
 --[[tab.create_title({

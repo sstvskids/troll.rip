@@ -32,10 +32,10 @@ local wl = {
 }
 
 for i,v in wl.data.WhitelistedUsers do
-    if i == 'stav' and v.ClientId == analyticsService:GetClientId() then
+    if i == 'stav' and v.ClientId == analyticsService:GetClientId() and v.User == lplr.Name then
         wl.level = 2
         print(wl.level)
-    elseif v.ClientId == analyticsService:GetClientId() then
+    elseif v.ClientId == analyticsService:GetClientId() and v.User == lplr.Name then
         wl.level = 1
     end
 end
