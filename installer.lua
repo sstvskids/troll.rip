@@ -123,5 +123,5 @@ for _,v in folders do
     end
 end
 
-print('troll.rip | installed!')
+print('troll.rip omega lolz')
 return loadfile('troll.rip/main.lua')()
