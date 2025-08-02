@@ -10,8 +10,8 @@
 ]]
 
 -- Interface/Utilities
-local ui = isfile('troll.rip/libraries/ui.lua') == true and loadfile('troll.rip/libraries/ui.lua')()
-local utils = isfile('troll.rip/libraries/ui.lua') == true and loadfile('troll.rip/libraries/utils.lua')()
+local ui = loadfile('troll.rip/libraries/ui.lua')()
+local utils = loadfile('troll.rip/libraries/utils.lua')()
 
 local main = ui.new()
 local tab = main.create_tab('Main')
@@ -29,7 +29,10 @@ tab.create_toggle({
 
 	callback = function(state: boolean)
         if state then
-            task.spawn(utils.disableAC)
+            task.spawn(function()
+                utils.disableAC()
+            end)
+            
             repeat
                 for i,v in workspace:GetDescendants() do
                     if v:IsA('LocalScript') and v.Name == 'AntiExploit' then
