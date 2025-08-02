@@ -37,7 +37,9 @@ tab.create_toggle({
             end
             task.wait()
         until enabled == false
-	end
+	else
+        warn('Anticheat Bypass can not be disabled, however disabling will prevent future attempts of Car AntiExploit bypass.')
+    end
 })
 tab.create_title({
 	name = 'Visualizer',
