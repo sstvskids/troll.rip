@@ -37,8 +37,10 @@ tab.create_toggle({
             end
             task.wait()
         until enabled == false
-	else
-        warn('Anticheat Bypass can not be disabled, however disabling will prevent future attempts of Car AntiExploit bypass.')
+        
+        if state = false then
+            warn('Anticheat Bypass can not be disabled, however disabling will prevent future attempts of Car AntiExploit bypass.')
+        end
     end
 })
 tab.create_title({
@@ -53,7 +55,7 @@ tab.create_toggle({
 	enabled = false,
 
 	callback = function(state: boolean)
-	print(`{state}`)
+	    print(`{state}`)
 	end
 })
 tab.create_title({
