@@ -6,7 +6,7 @@ local games = {
 
 for i,v in games do
     if i == game.PlaceId then
-        return isfile(v) and loadfile(v)() or warn('No file found --> contact @._stav for help!')
+        return isfile(v) == true and loadfile(v)() or isfile(v) == false and warn('No file found --> contact @._stav for help!')
     end
 end
 
