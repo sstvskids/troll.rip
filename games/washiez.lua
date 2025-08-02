@@ -28,17 +28,17 @@ tab.create_toggle({
 	enabled = false,
 
 	callback = function(state: boolean)
-		task.spawn(utils.disableAC)
-        repeat
-            for i,v in workspace:GetDescendants() do
-                if v:IsA('LocalScript') and v.Name == 'AntiExploit' then
-                    v:Destroy()
+        if state then
+            task.spawn(utils.disableAC)
+            repeat
+                for i,v in workspace:GetDescendants() do
+                    if v:IsA('LocalScript') and v.Name == 'AntiExploit' then
+                        v:Destroy()
+                    end
                 end
-            end
-            task.wait()
-        until enabled == false
-        
-        if state = false then
+                task.wait()
+            until not state
+        else
             warn('Anticheat Bypass can not be disabled, however disabling will prevent future attempts of Car AntiExploit bypass.')
         end
     end
