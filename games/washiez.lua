@@ -13,6 +13,11 @@
 local ui = loadfile('troll.rip/libraries/ui.lua')()
 local utils = loadfile('troll.rip/libraries/utils.lua')()
 
+local runService = cloneref(game:GetService('RunService'))
+local connections = {
+    Anticheat = ''
+}
+
 local main = ui.new()
 local tab = main.create_tab('Main')
 
@@ -30,23 +35,25 @@ tab.create_toggle({
 	callback = function(state: boolean)
         if state then
             task.spawn(function()
-                utils.disableAC()
+                utils.funcs.disableAC()
             end)
-            
-            repeat
-                for i,v in workspace:GetDescendants() do
-                    if v:IsA('LocalScript') and v.Name == 'AntiExploit' then
-                        v:Destroy()
-                    end
+
+            connections.Anticheat = workspace.DescendantAdded:Connect(function(ac)
+                if ac.Name == "AntiExploit" then
+                    ac:Destroy()
                 end
-                task.wait()
-            until not state
+            end)
         else
+            if connections.Anticheat ~= '' then
+                connections.Anticheat:Disconnect()
+                connections.Anticheat = ''
+            end
             warn('Anticheat Bypass can not be disabled, however disabling will prevent future attempts of Car AntiExploit bypass.')
         end
     end
 })
-tab.create_title({
+
+--[[tab.create_title({
 	name = 'Visualizer',
 	section = 'right'
 })
@@ -185,4 +192,4 @@ tab.create_dropdown({
 	callback = function(value: string)
 	    print(value)
 	end
-})
+})]]
