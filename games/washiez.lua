@@ -22,7 +22,7 @@ local main = ui.new()
 local tab = main.create_tab('Main')
 
 tab.create_title({
-	name = 'Anticheat',
+	name = 'AnticheatBypass',
 	section = 'left'
 })
 tab.create_toggle({
