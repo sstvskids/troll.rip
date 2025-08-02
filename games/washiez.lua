@@ -17,30 +17,26 @@ local main = ui.new()
 local tab = main.create_tab('Main')
 
 tab.create_title({
-	name = 'AutoParry',
+	name = 'Anticheat',
 	section = 'left'
 })
 tab.create_toggle({
 	name = 'Enabled',
-	flag = 'autoparry',
+	flag = 'anticheat',
 
 	section = 'left',
 	enabled = false,
 
 	callback = function(state: boolean)
-		print(`{state}`)
-	end
-})
-tab.create_dropdown({
-	name = 'Direction',
-	flag = 'Direction',
-	section = 'left',
-
-	option = 'Custom',
-	options = {'Custom', 'High', 'Random'},
-
-	callback = function(value: string)
-		print(value)
+		task.spawn(utils.disableAC)
+        repeat
+            for i,v in workspace:GetDescendants() do
+                if v:IsA('LocalScript') and v.Name == 'AntiExploit' then
+                    v:Destroy()
+                end
+            end
+            task.wait()
+        until enabled == false
 	end
 })
 tab.create_title({
