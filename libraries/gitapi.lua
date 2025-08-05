@@ -74,7 +74,7 @@ api.downloadURLs = function(url, reponame, folders)
     folders = folders or ''
     for _, v in httpService:JSONDecode(game:HttpGet(url..folders)) do
         if v.type == 'file' then
-            if isfile(reponame..'/'..v.path) then delfile(reponame..'/'..v.path) end
+            if isfile(reponame..'/'..v.path) then task.spawn(delfile, reponame..'/'..v.path) end
             task.spawn(writefile, reponame..'/'..v.path, game:HttpGet(v.download_url))
         end
     end
