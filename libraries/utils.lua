@@ -15,6 +15,10 @@ local utils = {
     cars = {}
 }
 
+local cloneref = cloneref or function(obj)
+    return obj
+end
+
 local replicatedStorage = cloneref(game:GetService('ReplicatedStorage'))
 local playersService = cloneref(game:GetService('Players'))
 local workspace = cloneref(game:GetService('Workspace'))

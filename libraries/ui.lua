@@ -8,6 +8,10 @@
 
 getgenv().namehub = "troll.rip"
 
+local cloneref = cloneref or function(obj)
+    return obj
+end
+
 local UserInputService = cloneref(game:GetService('UserInputService'))
 local LocalPlayer = cloneref(game:GetService('Players')).LocalPlayer
 local TweenService = cloneref(game:GetService('TweenService'))

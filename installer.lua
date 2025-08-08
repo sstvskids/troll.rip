@@ -6,23 +6,11 @@
     Forever always will be free, and undetected.
 ]]
 
--- Functions troll.rip needs to work
-local function assert(func, msg, cfunc) -- Func (function), Msg (warn/err string), cfunc (custom function)
-    if cfunc and not func then
-        warn(msg)
-        getgenv().func = cfunc
-    end
-    if not func then
-        error(msg, 2)
-        return
-    end
+local cloneref = cloneref or function(obj)
+    return obj
 end
 
-assert(cloneref, 'Where is the UD-ness?', function(obj)
-    return obj
-end)
-
-assert(firetouchinterest, 'Bad exec lol', function(plr: Instance, item: Instance, tog: number): Instance -- taken off of kool.aid, ik
+local firetouchinterest = firetouchinterest or function(plr: Instance, item: Instance, tog: number): Instance -- taken off of kool.aid, ik
     task.spawn(function()
         if tog == 0 or tog > 1 then return end
 
@@ -49,40 +37,16 @@ assert(firetouchinterest, 'Bad exec lol', function(plr: Instance, item: Instance
             end
         end
     end)
-end)
+end
 
-assert(identifyexecutor, 'Super horrible executor', function()
-    return 'troll.rip 1.0.0'
-end)
-
-assert(isfile, 'Learn to make functions and maybe I will forgive you', function(file)
+local isfile = isfile or function(file)
     local suc, res = pcall(readfile, file)
     return suc and res ~= nil and res ~= ''
-end)
+end
 
-assert(delfile, 'Learn to make functions and maybe I will forgive you', function(file)
+local delfile = delfile or function(file)
     writefile(file, '')
-end)
-
-assert(loadstring, 'Learn to make functions and maybe I will forgive you', function(path)
-    local function randomString(length)
-        local result = ''
-        for i = 1, length do
-            result = result..string.char(math.random(97, 122))
-        end
-        return result
-    end
-    local str = randomString(10)
-
-    if not isfile(str) then
-        writefile(str, path)
-        loadfile(str)()
-        task.wait(0.06)
-        delfile(str)
-    end
-end)
-
-assert(fireproximityprompt, 'Horrific executor. Run sum MoreUNC or sum shi')
+end
 
 -- Actual installer lolz!
 local api = 'https://api.github.com/repos/sstvskids/troll.rip/contents/'

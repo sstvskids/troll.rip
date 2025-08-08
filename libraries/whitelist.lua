@@ -6,6 +6,10 @@
     Meant to be a one person whitelist, so sorry not sorry :)
 ]]
 
+local cloneref = cloneref or function(obj)
+    return obj
+end
+
 local analyticsService = cloneref(game:GetService('RbxAnalyticsService'))
 local playersService = cloneref(game:GetService('Players'))
 

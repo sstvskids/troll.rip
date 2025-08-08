@@ -13,6 +13,10 @@
 local ui = loadfile('troll.rip/libraries/ui.lua')()
 local utils = loadfile('troll.rip/libraries/utils.lua')()
 
+local cloneref = cloneref or function(obj)
+    return obj
+end
+
 local runService = cloneref(game:GetService('RunService'))
 local connections = {
     Anticheat = ''
